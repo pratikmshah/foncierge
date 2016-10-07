@@ -8,6 +8,11 @@ NEWS_LINK = 'span.name a'                                         # returns titl
 NEWS_SRC = 'div.byline'                                           # returns source of article
 NEWS_EXCERPT = 'div.g-c div'                                      # returns article except
 
+# ---------------------------------GOOGLE FINANCE WORLD MARKETS
+G_WORLD_MARKETS = "https://www.google.com/finance"                # google finance world markets
+WORLD_MARKET_SELECTOR = 'div#markets div.sfe-section table tbody' # grab table body and list of world markets
+
+
 # get top stories from google finance news
 def get_google_news
   data = []                                                             # compiled data to return
@@ -20,6 +25,12 @@ def get_google_news
   data << parse_data_array(doc, NEWS_LINK, 2)
 
   return data.transpose
+end
+
+# returns list of stock market exchanges
+def get_world_markets
+  data = []
+  doc = get_url_data(G_WORLD_MARKETS)                                 # retrieve html from google finance
 end
 
 private
