@@ -30,7 +30,10 @@ end
 # returns list of stock market exchanges
 def get_world_markets
   data = []
-  doc = get_url_data(G_WORLD_MARKETS)                                 # retrieve html from google finance
+  doc = get_url_data(G_WORLD_MARKETS)                                  # retrieve html from google finance
+  doc = remove_empty(info_to_array(doc.at_css(WORLD_MARKET_SELECTOR))) # parse and retrieve all of main news and remove
+  doc.delete_at(11)                                                       # remove empty tr cell
+  return doc
 end
 
 private
