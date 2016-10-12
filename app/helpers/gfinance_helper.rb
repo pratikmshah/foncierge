@@ -87,11 +87,14 @@ private
       tmp = []                                    # temp data to hold each loop
       arr.each do |data|
         if i == 1
-          tmp << data.at_css(".symbol").text      # first round gather all symbols
+          tmp << data.at_css(".symbol").text
+                                       .gsub("\n", "")   # first round gather all symbols
         elsif i == 2
-          tmp << data.at_css(".price").text       # second round gather the price
+          tmp << data.at_css(".price").text
+                                      .gsub("\n", "")    # second round gather the price
         else
-          tmp << data.at_css(".change").text      # third round get the price change
+          tmp << data.at_css(".change").text
+                                       .gsub("\n", "")   # third round get the price change
         end
       end
       result << tmp                               # send to results
