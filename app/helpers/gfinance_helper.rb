@@ -15,6 +15,9 @@ WORLD_MARKET_SELECTOR = 'div#markets div.sfe-section table tbody' # grab table b
 #----------------------------------GOOGLE FINANCE CURRENCIES
 WORLD_CURRENCIES = 'div#currencies div.sfe-section table tbody'   # grab table body and list of world currencies
 
+#----------------------------------GOOGLE FINANCE BONDS
+WORLD_BONDS = 'div#bonds div.sfe-section table tbody'             # grab table body and list of world currencies
+
 # get top stories from google finance news
 def get_google_news
   data = []                                                             # compiled data to return
@@ -43,7 +46,17 @@ end
 def get_currencies
   data = []
   doc = get_url_data(G_FINANCE_HOMEPAGE)                               # retrieve html from google finance
-  doc = remove_empty(info_to_array(doc.at_css(WORLD_CURRENCIES)))      # parse and retrieve all of main news and remove
+  doc = remove_empty(info_to_array(doc.at_css(WORLD_CURRENCIES)))      # parse and retrieve all of currencies
+  doc = parse_markets_to_array(doc)                                    # parse the document and return data
+  return doc
+end
+
+# returns bond interest rates
+def get_bonds
+  data = []
+  doc = get_url_data(G_FINANCE_HOMEPAGE)                               # retrieve html from google finance
+  doc = remove_empty(info_to_array(doc.at_css(WORLD_BONDS)))           # parse and retrieve all of bond data
+  doc.delete_at(2)
   doc = parse_markets_to_array(doc)                                    # parse the document and return data
   return doc
 end
