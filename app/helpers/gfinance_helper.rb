@@ -32,7 +32,8 @@ def get_world_markets
   data = []
   doc = get_url_data(G_WORLD_MARKETS)                                  # retrieve html from google finance
   doc = remove_empty(info_to_array(doc.at_css(WORLD_MARKET_SELECTOR))) # parse and retrieve all of main news and remove
-  doc.delete_at(11)                                                       # remove empty tr cell
+  doc.delete_at(11)                                                    # remove empty tr cell
+  doc = parse_markets_to_array(doc)                                    # parse the document and return data
   return doc
 end
 
@@ -77,6 +78,25 @@ private
     elsif access == 2
       arr.map { |el| el.children.at_css("#{css}").first[1] }
     end
+  end
+
+  # parse world markets data to array format
+  def parse_markets_to_array(arr)
+    result = []
+    for i in 1..3 do                              # loop through data 3 times
+      tmp = []                                    # temp data to hold each loop
+      arr.each do |data|
+        if i == 1
+          tmp << data.at_css(".symbol").text      # first round gather all symbols
+        elsif i == 2
+          tmp << data.at_css(".price").text       # second round gather the price
+        else
+          tmp << data.at_css(".change").text      # third round get the price change
+        end
+      end
+      result << tmp                               # send to results
+    end
+    return result.transpose
   end
 
 end
