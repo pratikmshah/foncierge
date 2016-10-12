@@ -9,9 +9,11 @@ NEWS_SRC = 'div.byline'                                           # returns sour
 NEWS_EXCERPT = 'div.g-c div'                                      # returns article except
 
 # ---------------------------------GOOGLE FINANCE WORLD MARKETS
-G_WORLD_MARKETS = "https://www.google.com/finance"                # google finance world markets
+G_FINANCE_HOMEPAGE = "https://www.google.com/finance"             # google finance world markets
 WORLD_MARKET_SELECTOR = 'div#markets div.sfe-section table tbody' # grab table body and list of world markets
 
+#----------------------------------GOOGLE FINANCE CURRENCIES
+WORLD_CURRENCIES = 'div#currencies div.sfe-section table tbody'   # grab table body and list of world currencies
 
 # get top stories from google finance news
 def get_google_news
@@ -30,9 +32,18 @@ end
 # returns list of stock market exchanges
 def get_world_markets
   data = []
-  doc = get_url_data(G_WORLD_MARKETS)                                  # retrieve html from google finance
-  doc = remove_empty(info_to_array(doc.at_css(WORLD_MARKET_SELECTOR))) # parse and retrieve all of main news and remove
+  doc = get_url_data(G_FINANCE_HOMEPAGE)                               # retrieve html from google finance
+  doc = remove_empty(info_to_array(doc.at_css(WORLD_MARKET_SELECTOR))) # parse and retrieve all markets data
   doc.delete_at(11)                                                    # remove empty tr cell
+  doc = parse_markets_to_array(doc)                                    # parse the document and return data
+  return doc
+end
+
+# returns list of currencies
+def get_currencies
+  data = []
+  doc = get_url_data(G_FINANCE_HOMEPAGE)                               # retrieve html from google finance
+  doc = remove_empty(info_to_array(doc.at_css(WORLD_CURRENCIES)))      # parse and retrieve all of main news and remove
   doc = parse_markets_to_array(doc)                                    # parse the document and return data
   return doc
 end
