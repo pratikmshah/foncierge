@@ -18,6 +18,9 @@ WORLD_CURRENCIES = 'div#currencies div.sfe-section table tbody'   # grab table b
 #----------------------------------GOOGLE FINANCE BONDS
 WORLD_BONDS = 'div#bonds div.sfe-section table tbody'             # grab table body and list of world currencies
 
+#----------------------------------GOOGLE FINANCE SECTOR SUMMARY
+SECTOR_SUMMARY = 'div#country-widget'    # grab table body of sector changes
+
 # get top stories from google finance news
 def get_google_news
   data = []                                                             # compiled data to return
@@ -58,6 +61,15 @@ def get_bonds
   doc = remove_empty(info_to_array(doc.at_css(WORLD_BONDS)))           # parse and retrieve all of bond data
   doc.delete_at(2)
   doc = parse_markets_to_array(doc)                                    # parse the document and return data
+  return doc
+end
+
+# returns the sector changes for the day
+def get_sector_summary
+  data = []
+  doc = get_url_data(G_FINANCE_HOMEPAGE)                               # retrieve html from google finance
+  doc = doc.at_css(SECTOR_SUMMARY)                                     # parse and retrieve sector changes
+  doc = format_sector_summary(doc)
   return doc
 end
 
@@ -124,6 +136,23 @@ private
       result << tmp                               # send to results
     end
     return result.transpose
+  end
+
+  # sector summary format
+  def format_sector_summary(doc)
+    doc = doc.children[3].children[1].text.gsub("\n", "").split("%")     # get text and convert to array
+    doc.delete_at(0)                                                     # remove first element
+    doc.first.gsub!(" down / up", "")                                    # get rid of up/down text
+
+    doc.each do |str|
+      if str.include? "+"
+        str.gsub!("+", " +")
+      elsif str.include? "-"
+        str.gsub!("-", " -")
+      end
+
+      str << "%"
+    end
   end
 
 end
