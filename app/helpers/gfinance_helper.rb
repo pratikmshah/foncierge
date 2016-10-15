@@ -21,6 +21,9 @@ WORLD_BONDS = 'div#bonds div.sfe-section table tbody'             # grab table b
 #----------------------------------GOOGLE FINANCE SECTOR SUMMARY
 SECTOR_SUMMARY = 'div#country-widget'    # grab table body of sector changes
 
+#----------------------------------GOOGLE FINANCE TRENDS
+TOP_MOVERS = 'div#topmovers'    # grab trends section
+
 # get top stories from google finance news
 def get_google_news
   data = []                                                             # compiled data to return
@@ -70,6 +73,14 @@ def get_sector_summary
   doc = get_url_data(G_FINANCE_HOMEPAGE)                               # retrieve html from google finance
   doc = doc.at_css(SECTOR_SUMMARY)                                     # parse and retrieve sector changes
   doc = format_sector_summary(doc)
+  return doc
+end
+
+# returns top movers in price, market cap and volume
+def get_price_trends
+  doc = get_url_data(G_FINANCE_HOMEPAGE)
+  doc = doc.at_css(TOP_MOVERS)
+  doc = parse_price_trends(doc)
   return doc
 end
 
@@ -153,6 +164,26 @@ private
 
       str << "%"
     end
+  end
+
+  # format price trend
+  def parse_price_trends(doc)
+    # Price Movers formatting
+    arr = doc.children.at_css("div#tm_price_0").children[1].text         # get data for price movers
+    arr = arr.split("\n")
+    arr.reject! { |e| e.to_s.empty? }
+
+    # modify losers
+    arr[arr.index("LosersChange")] = "Change"
+    arr[arr.index("Change") - 1] = "Losers"
+    arr[arr.index("Losers") - 1] = "Symbol"
+
+    # modify gainers
+    arr[0] = "Change"
+    arr.unshift("Gainers")
+    arr.unshift("Symbol")
+
+    return arr
   end
 
 end
