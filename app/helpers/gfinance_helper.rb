@@ -33,10 +33,10 @@ def get_google_news
   doc = get_url_data(G_NEWS)                                            # retrieve html from google finance via nokogiri
   doc = remove_empty(info_to_array(doc.at_css(NEWS_SECTION_SELECTOR)))  # parse and retrieve all of main news and remove "\n" and then ""
   doc.pop # remove more news at the end
-  data << parse_data_array(doc, NEWS_HEADLINE, 1)
-  data << parse_data_array(doc, NEWS_SRC, 1)
-  data << parse_data_array(doc, NEWS_EXCERPT, 1)
-  data << parse_data_array(doc, NEWS_LINK, 2)
+  data << remove_esc(parse_data_array(doc, NEWS_HEADLINE, 1))
+  data << remove_esc(parse_data_array(doc, NEWS_SRC, 1))
+  data << remove_esc(parse_data_array(doc, NEWS_EXCERPT, 1))
+  data << remove_esc(parse_data_array(doc, NEWS_LINK, 2))
 
   return data.transpose
 end
@@ -144,6 +144,11 @@ private
     elsif access == 2
       arr.map { |el| el.children.at_css("#{css}").first[1] }
     end
+  end
+
+  # remove escape chars
+  def remove_esc(arr)
+    arr.map { |e| e.gsub("\n", "") }
   end
 
   # parse world markets data to array format
