@@ -22,7 +22,9 @@ WORLD_BONDS = 'div#bonds div.sfe-section table tbody'             # grab table b
 SECTOR_SUMMARY = 'div#country-widget'    # grab table body of sector changes
 
 #----------------------------------GOOGLE FINANCE TRENDS
-TOP_MOVERS = 'div#topmovers'    # grab trends section
+TOP_MOVERS = 'div#topmovers'        # grab trends section
+PRICE_MOVER = "div#tm_price_0"      # grab price movers data
+MKTCAP_MOVER = "div#tm_mcap_0"   # grab market cap movers
 
 # get top stories from google finance news
 def get_google_news
@@ -80,7 +82,15 @@ end
 def get_price_trends
   doc = get_url_data(G_FINANCE_HOMEPAGE)
   doc = doc.at_css(TOP_MOVERS)
-  doc = parse_price_trends(doc)
+  doc = parse_trends(doc, PRICE_MOVER)
+  return doc
+end
+
+# returns top movers in price, market cap and volume
+def get_marketcap_trends
+  doc = get_url_data(G_FINANCE_HOMEPAGE)
+  doc = doc.at_css(TOP_MOVERS)
+  doc = parse_trends(doc, MKTCAP_MOVER)
   return doc
 end
 
@@ -167,11 +177,11 @@ private
   end
 
   # format price trend
-  def parse_price_trends(doc)
+  def parse_trends(doc, path)
     # Price Movers formatting
-    arr = doc.children.at_css("div#tm_price_0").children[1].text         # get data for price movers
-    arr = arr.split("\n")
-    arr.reject! { |e| e.to_s.empty? }
+    arr = doc.children.at_css(path).children[1].text        # get data for price movers
+    arr = arr.split("\n")                                   # split string into array
+    arr.reject! { |e| e.to_s.empty? }                       # remove empty elements
 
     # modify losers
     arr[arr.index("LosersChange")] = "Change"
