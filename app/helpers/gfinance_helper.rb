@@ -134,7 +134,7 @@ private
   end
 
   def remove_empty(arr)
-    arr.delete_if { |d| d == "" }
+    arr.delete_if { |e| e == "" }
   end
 
   # parse data and put into array. arr of data to parse and css selector for nokogiri
