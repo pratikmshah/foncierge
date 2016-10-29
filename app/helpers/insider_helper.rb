@@ -7,6 +7,7 @@ module InsiderHelper
     data = []
     doc = get_url_data(INSIDER_NEWS)
     data << format_news(doc)
+    data = data.first.each.reject { |e| e.empty? }
 
     return data
   end
@@ -47,9 +48,18 @@ module InsiderHelper
       doc.each_with_index do |e, i|
 
         if i.odd? && i != 0 && i != 5 && i != 23                                           # get index and check if odd
-          tmp << e.at_css("div.river-post__byline h2").text.strip
-          tmp << e.at_css("div.river-post__image-wrapper a").attributes["href"].value
-          tmp << e.at_css("div.river-post__image-wrapper a img").attributes["src"].value
+          if e.at_css("div.river-post__byline h2")
+            tmp << e.at_css("div.river-post__byline h2").text.strip
+          end
+
+          if e.at_css("div.river-post__image-wrapper a")
+            tmp << e.at_css("div.river-post__image-wrapper a").attributes["href"].value
+          end
+
+          if e.at_css("div.river-post__image-wrapper a img")
+            tmp << e.at_css("div.river-post__image-wrapper a img").attributes["src"].value
+          end
+
           result << tmp                                                                     # transfer
           tmp = []                                                                          # reset
         end
