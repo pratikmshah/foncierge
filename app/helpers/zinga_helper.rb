@@ -1,4 +1,4 @@
-module ZingaHelper
+  module ZingaHelper
 
 # ---------------------------------BENZINGA NEWS
 ZINGA_NEWS = "http://www.benzinga.com/best-of-benzinga?page=1"
