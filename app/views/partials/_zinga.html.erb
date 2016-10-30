@@ -1,0 +1,19 @@
+<div id="zinga-news">
+  <p class="h2"><strong>Benzinga News</strong></p>
+  <ul class="list-unstyled">
+    <% zinga_news.each do |data| %>
+      <li>
+        <div class="row">
+          <div class="col-xs-2">
+            <img src=<%= data[3] %> class="img-thumbnail">
+          </div>
+          <div class="col-xs-8">
+            <h5 class="no-marg"><strong><a href=<%= data[1] %> target="_blank"><%= data[0] %></a></strong></h5>
+            <p class="text-muted no-marg"><%= data[2] %></p>
+            <p class="no-marg"> <%= data[4] %> </p>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
