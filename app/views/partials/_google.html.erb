@@ -1,9 +1,9 @@
 <div id="google-news">
-  <p class="h2">Google News</p>
+  <p class="h2"><strong>Google News</strong></p>
   <ul class="list-unstyled">
     <% google_news.each do |data| %>
       <li>
-        <h5 class="no-marg"><a href=<%= data[3] %> target="_blank"><%= data[0] %></a></h5>
+        <h5 class="no-marg"><strong><a href=<%= data[3] %> target="_blank"><%= data[0] %></a></strong></h5>
         <p class="text-muted no-marg"><%= data[1] %></p>
         <p class="no-marg">
           <%= data[2] %>
