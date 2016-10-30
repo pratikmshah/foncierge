@@ -23,7 +23,6 @@ body {
   }
 
   #main {
-    min-height: 1000px;
     background-color: #EBEBEB;
 
     #market-stats {
@@ -32,7 +31,12 @@ body {
 
     #market-news {
 
-      #google-news
+      #google-news, #fool-news {
+        p.h2 { margin-top: 0px; }
+        padding: 5px;
+        background-color: #FAFAFA;
+        ul li { margin-bottom: 10px; }
+      }
 
     }
   }
