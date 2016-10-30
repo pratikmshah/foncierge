@@ -21,10 +21,6 @@ module InsiderHelper
       Nokogiri::HTML(open(url))
     end
 
-    def remove_empty(arr)
-      arr.delete_if { |e| e.text == "\n" }
-    end
-
     # get headline article
     def format_news(doc)
       result = []

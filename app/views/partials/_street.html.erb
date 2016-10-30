@@ -1,0 +1,10 @@
+<div id="street-news">
+  <p class="h2"><strong>The Street</strong></p>
+  <ul class="list-unstyled">
+    <% street_news.each do |data| %>
+      <li>
+        <h5 class="no-marg"><strong><a href=<%= data[0] %> target="_blank"><%= data[1] %></a></strong></h5>
+      </li>
+    <% end %>
+  </ul>
+</div>

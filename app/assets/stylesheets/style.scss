@@ -1,7 +1,20 @@
+// Resets
+a {
+  text-decoration: none;
+  color: black;
+
+  &:hover {
+    color: #FF6600;
+    text-decoration: none;
+  }
+}
+
 // Utility
-.no-pad { padding: 0px;}
+.no-pad { padding: 0px; }
+.no-marg { margin: 0px; }
 .red { color: red; }
 .green { color: green; }
+.orange { color: #FF6600; }
 
 body {
   background-color: #31A7E6;
@@ -20,7 +33,6 @@ body {
   }
 
   #main {
-    min-height: 1000px;
     background-color: #EBEBEB;
 
     #market-stats {
@@ -28,6 +40,15 @@ body {
     }
 
     #market-news {
+
+      #google-news, #fool-news, #street-news, #zinga-news, #insider-news {
+        margin-bottom: 15px;
+
+        p.h2 { margin-top: 0px; }
+        padding: 5px;
+        background-color: #FAFAFA;
+        ul li { margin-bottom: 10px; }
+      }
 
     }
   }

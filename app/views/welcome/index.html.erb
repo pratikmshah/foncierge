@@ -5,10 +5,12 @@
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a id="logo" class="navbar-brand" href="/">FONCIERGE</a>
+            <a id="logo" class="navbar-brand" href="/"><strong>FONCIERGE</strong></a>
           </div>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+            <li>
+              <a href="#"><strong><span class="glyphicon glyphicon-search"></span></strong></a>
+            </li>
           </ul>
         </div> <!-- end of navbar container-fluid -->
       </nav>
@@ -28,7 +30,11 @@
       </section>
 
       <section id="market-news">
-
+        <%= render '/partials/google', google_news: @google_news %>
+        <%= render '/partials/fool', fool_news: @fool_news %>
+        <%= render '/partials/street', street_news: @street_news %>
+        <%= render '/partials/zinga', zinga_news: @zinga_news %>
+        <%= render '/partials/insider', insider_news: @insider_news %>
       </section>
 
     </article>

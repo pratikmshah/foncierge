@@ -1,4 +1,4 @@
-  module ZingaHelper
+module ZingaHelper
 
 # ---------------------------------BENZINGA NEWS
 ZINGA_NEWS = "http://www.benzinga.com/best-of-benzinga?page=1"
@@ -12,10 +12,9 @@ def get_benzinga_news
   doc = get_url_data(ZINGA_NEWS)
   doc = info_to_array(doc.at_css(NEWS))
   doc.pop
-  doc = remove_empty(doc)
   data = parse_benzinga_news(doc)
 
-  return data.transpose
+  return data.reject { |e| e.empty? }
 end
 
 private
@@ -38,28 +37,32 @@ private
     end
   end
 
-  def remove_empty(arr)
-    arr.delete_if { |e| e.text == "\n  \n    " }
-  end
-
   # parse news information get the title, date, excerpt, image src and link
   def parse_benzinga_news(arr)
     result = []
-    for i in 1..5 do
-      tmp = []                                    # temp data to hold each loop
-      arr.each do |data|
-        if i == 1
-          tmp << data.at_css("h3 a").text.gsub("\n", "")            # title
-        elsif i == 2
-          tmp << BENZINGA + data.at_css("a").first.last             # url
-        elsif i == 3
-          tmp << data.at_css("span.date").text.gsub("\n", "")       # date
-        elsif i == 4
-          tmp << data.at_css("div a img").first.last                # pic src
-        else
-          tmp << data.at_css("div p").text.gsub("\n", "").strip     # excerpt
-        end
+    arr.each do |data|
+      tmp = []
+
+      if data.at_css("h3 a")
+        tmp << data.at_css("h3 a").text.gsub("\n", "")            # title
       end
+
+      if data.at_css("a")
+        tmp << BENZINGA + data.at_css("a").first.last             # url
+      end
+
+      if data.at_css("span.date")
+        tmp << data.at_css("span.date").text.gsub("\n", "")       # date
+      end
+
+      if data.at_css("div a img")
+        tmp << data.at_css("div a img").first.last                # pic src
+      end
+
+      if data.at_css("div p")
+        tmp << data.at_css("div p").text.gsub("\n", "").strip     # excerpt
+      end
+
       result << tmp
     end
     return result
