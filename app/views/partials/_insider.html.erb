@@ -1,0 +1,17 @@
+<div id="insider-news">
+  <p class="h2"><strong>Business Insider News</strong></p>
+  <ul class="list-unstyled">
+    <% insider_news.each do |data| %>
+      <li>
+        <div class="row">
+          <div class="col-xs-2">
+            <img src=<%= data[2] %> class="img-thumbnail"/>
+          </div>
+          <div class="col-xs-8">
+            <h4 class="no-marg"><strong><a href=<%= data[1] %> target="_blank"><%= data[0] %></a></strong></h4>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
