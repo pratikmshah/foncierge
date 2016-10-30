@@ -1,0 +1,33 @@
+// Utility
+.no-pad { padding: 0px;}
+
+body {
+  background-color: #31A7E6;
+
+  .navbar {
+    margin-bottom: 0px;
+    border-radius: 0px;
+  }
+
+
+  section#market-index {
+    background-color: #0E5061;
+    color: #FFF;
+
+    div { padding: 5px; }
+  }
+
+  #main {
+    min-height: 1000px;
+    background-color: #EBEBEB;
+  }
+
+
+  footer {
+    min-height: 50px;
+    background-color: #E4E4E4;
+    border-top: 1px solid #bbbbbb;
+  }
+
+}
+
