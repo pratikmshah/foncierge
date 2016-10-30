@@ -1,0 +1,14 @@
+<div id="google-news">
+  <h4>Google News</h4>
+  <ul class="list-unstyled">
+    <% google_news.each do |data| %>
+      <li>
+        <h5 class="no-marg"><a href=<%= data[3] %> target="_blank"><%= data[0] %></a></h5>
+        <p class="text-muted no-marg"><%= data[1] %></p>
+        <p class="no-marg">
+          <%= data[2] %>
+        </p>
+      </li>
+    <% end %>
+  </ul>
+</div>
