@@ -1,4 +1,4 @@
-  module ZingaHelper
+module ZingaHelper
 
 # ---------------------------------BENZINGA NEWS
 ZINGA_NEWS = "http://www.benzinga.com/best-of-benzinga?page=1"
@@ -12,7 +12,6 @@ def get_benzinga_news
   doc = get_url_data(ZINGA_NEWS)
   doc = info_to_array(doc.at_css(NEWS))
   doc.pop
-  doc = remove_empty(doc)
   data = parse_benzinga_news(doc)
 
   return data.transpose
@@ -36,10 +35,6 @@ private
         data
       end
     end
-  end
-
-  def remove_empty(arr)
-    arr.delete_if { |e| e.text == "\n  \n    " }
   end
 
   # parse news information get the title, date, excerpt, image src and link

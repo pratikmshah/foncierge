@@ -30,7 +30,7 @@ module FoolHelper
     def parse_fool_news(doc, link, result)
       tmp = []
       doc.at_css(link).children.each do |el|
-        puts el.text
+
         if el.at_css("a")
           tmp << el.at_css("a").text.gsub("\n", "").gsub("\t", "").strip  # get title
           tmp << FOOL + el.at_css("a").first.last                         # get url
