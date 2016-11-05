@@ -9,8 +9,8 @@ class WelcomeController < ApplicationController
 
   def index
     @google_markets = get_world_markets
-    # @google_currencies = get_currencies
-    # @google_bonds = get_bonds
+    @google_currencies = get_currencies
+    @google_bonds = get_bonds
     # @google_sector = get_sector_summary
     # @google_price = get_price_trends
     # @google_marketcap = get_marketcap_trends

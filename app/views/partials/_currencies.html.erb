@@ -1,10 +1,10 @@
-<div id="world-markets">
-  <p class="h5"><strong>World Markets</strong></p>
+<div id="world-currencies">
+  <p class="h5"><strong>Currencies</strong></p>
   <div class="table-responsive">
     <table class="table table-hover table-condensed">
       <tbody>
 
-        <% google_markets.each do |data| %>
+        <% google_currencies.each do |data| %>
           <% if data.last.include?("-") %>
             <tr>
               <td><%= data[0] %></td>
