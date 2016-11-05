@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
   include ZingaHelper
 
   def index
-    # @google_market = get_world_markets
+    @google_markets = get_world_markets
     # @google_currencies = get_currencies
     # @google_bonds = get_bonds
     # @google_sector = get_sector_summary

@@ -26,7 +26,18 @@
     <article id="main" class="col-md-8 col-md-offset-2 col-sm-12 col-sm-offset-0">
 
       <section id="market-stats">
+        <div class="row">
 
+          <div class="col-sm-8">
+
+          </div>
+
+          <div class="col-sm-4">
+            <%= render '/partials/worldmkts', google_markets: @google_markets %>
+
+          </div>
+
+        </div>
       </section>
 
       <section id="market-news">
