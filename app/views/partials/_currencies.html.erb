@@ -1,0 +1,26 @@
+<div id="currencies">
+  <p class="h5"><strong>Currencies</strong></p>
+  <div class="table-responsive">
+    <table class="table table-hover table-condensed">
+      <tbody>
+
+        <% google_currencies.each do |data| %>
+          <% if data.last.include?("-") %>
+            <tr>
+              <td><%= data[0] %></td>
+              <td><%= data[1] %></td>
+              <td class="red"><%= data[2] %></td>
+            </tr>
+          <% else %>
+            <tr>
+              <td><%= data[0] %></td>
+              <td><%= data[1] %></td>
+              <td class="green"><%= data[2] %></td>
+            </tr>
+          <% end %>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+</div>

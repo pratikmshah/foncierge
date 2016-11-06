@@ -7,6 +7,7 @@ NEWS_HEADLINE = 'span.name'                                       # returns titl
 NEWS_LINK = 'span.name a'                                         # returns title url
 NEWS_SRC = 'div.byline'                                           # returns source of article
 NEWS_EXCERPT = 'div.g-c div'                                      # returns article except
+ROOT = "https://www.google.com"
 
 # ---------------------------------GOOGLE FINANCE WORLD MARKETS
 G_FINANCE_HOMEPAGE = "https://www.google.com/finance"             # google finance world markets
@@ -83,7 +84,8 @@ end
 def get_price_trends
   doc = get_url_data(G_FINANCE_HOMEPAGE)
   doc = doc.at_css(TOP_MOVERS)
-  doc = parse_trends(doc, PRICE_MOVER)
+  doc = doc.at_css(PRICE_MOVER)
+  doc = format_trends(doc)
   return doc
 end
 
@@ -91,7 +93,8 @@ end
 def get_marketcap_trends
   doc = get_url_data(G_FINANCE_HOMEPAGE)
   doc = doc.at_css(TOP_MOVERS)
-  doc = parse_trends(doc, MKTCAP_MOVER)
+  doc = doc.at_css(MKTCAP_MOVER)
+  doc = format_trends(doc)
   return doc
 end
 
@@ -99,7 +102,8 @@ end
 def get_volume_trends
   doc = get_url_data(G_FINANCE_HOMEPAGE)
   doc = doc.at_css(TOP_MOVERS)
-  doc = parse_trends(doc, VOLUME_MOVER)
+  doc = doc.at_css(VOLUME_MOVER)
+  doc = format_trends(doc, true)
   return doc
 end
 
@@ -214,6 +218,49 @@ private
       arr[0] = "Change"
       arr.unshift("Gainers")
       arr.unshift("Symbol")
+    end
+
+    return arr
+  end
+
+  def format_trends(doc, vol=false)
+    arr = []
+    doc.children[1].children.each do |el|
+      tmp = []
+
+      if el.at_css(".symbol")
+        tmp << el.at_css(".symbol a").text
+        tmp << ROOT + el.at_css(".symbol a").attributes["href"].text
+      end
+
+      if el.at_css(".name")
+        tmp << el.at_css(".name a").text
+      end
+
+      if el.at_css(".change")
+        tmp << el.at_css(".change").text.gsub("\n", "").strip
+      end
+
+      if el.at_css(".volume")
+        tmp << el.at_css(".volume").text.gsub("\n", "").strip
+      end
+
+      if el.at_css(".mktCap")
+        tmp << el.at_css(".mktCap").text.gsub("\n", "").strip
+      end
+
+      arr << tmp
+    end
+    arr.reject! { |e| e.empty? }
+
+    if !vol
+      arr[0].unshift("Gainers")
+      arr[0].unshift("Symbol")
+      arr[6].unshift("Losers")
+      arr[6].unshift("Symbol")
+    else
+      arr[0].unshift("Leaders")
+      arr[0].unshift("Symbol")
     end
 
     return arr

@@ -1,0 +1,108 @@
+<div id="movers">
+  <div id="price">
+    <p class="h5"><strong>Trends</strong></p>
+    <p class="h4">Price</p>
+    <div class="table-responsive">
+      <table class="table table-hover table-condensed">
+        <tbody>
+
+          <% google_price.each do |data| %>
+            <% if data.include?("Change") %>
+              <tr>
+                <th><%= data[0] %></th>
+
+                <% if data.include?("Losers") %>
+                  <th class="red"><%= data[1] %></th>
+                <% else %>
+                  <th class="green"><%= data[1] %></th>
+                <% end %>
+                <th><%= data[2] %></th>
+                <th><%= data[3] %></th>
+              </tr>
+            <% else %>
+              <tr>
+                <td><%= data[0] %></td>
+                <td><a href="<%= data[1] %>" target="_blank"><%= data[2] %></a></td>
+                <% if data[3].include?("-") %>
+                  <td class="red"><%= data[3] %></td>
+                <% else %>
+                  <td class="green"><%= data[3] %></td>
+                <% end %>
+                <td><%= data[4] %></td>
+              </tr>
+            <% end %>
+          <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="mktcap">
+    <p class="h4">Market Cap</p>
+    <div class="table-responsive">
+      <table class="table table-hover table-condensed">
+        <tbody>
+
+          <% google_marketcap.each do |data| %>
+            <% if data.include?("Change") %>
+              <tr>
+                <th><%= data[0] %></th>
+
+                <% if data.include?("Losers") %>
+                  <th class="red"><%= data[1] %></th>
+                <% else %>
+                  <th class="green"><%= data[1] %></th>
+                <% end %>
+                <th><%= data[2] %></th>
+                <th><%= data[3] %></th>
+              </tr>
+            <% else %>
+              <tr>
+                <td><%= data[0] %></td>
+                <td><a href="<%= data[1] %>" target="_blank"><%= data[2] %></a></td>
+                <% if data[3].include?("-") %>
+                  <td class="red"><%= data[3] %></td>
+                <% else %>
+                  <td class="green"><%= data[3] %></td>
+                <% end %>
+                <td><%= data[4] %></td>
+              </tr>
+            <% end %>
+          <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="volume">
+    <p class="h4">Volume</p>
+    <div class="table-responsive">
+      <table class="table table-hover table-condensed">
+        <tbody>
+
+          <% google_volume.each do |data| %>
+            <% if data.include?("Volume") %>
+              <tr>
+                <th><%= data[0] %></th>
+                <th class="green"><%= data[1] %></th>
+                <th><%= data[2] %></th>
+                <th><%= data[3] %></th>
+              </tr>
+            <% else %>
+              <tr>
+                <td><%= data[0] %></td>
+                <td><a href="<%= data[1] %>" target="_blank"><%= data[2] %></a></td>
+                <td><%= data[3] %></td>
+                <td><%= data[4] %></td>
+              </tr>
+            <% end %>
+          <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
