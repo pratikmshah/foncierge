@@ -28,6 +28,7 @@
       <section id="market-stats">
         <div class="row">
           <div class="col-sm-8">
+            <%= render '/partials/movers', google_price: @google_price, google_marketcap: @google_marketcap, google_volume: @google_volume %>
             <%= render '/partials/sector', google_sector: @google_sector %>
           </div>
 

@@ -83,7 +83,8 @@ end
 def get_price_trends
   doc = get_url_data(G_FINANCE_HOMEPAGE)
   doc = doc.at_css(TOP_MOVERS)
-  doc = parse_trends(doc, PRICE_MOVER)
+  doc = doc.at_css(PRICE_MOVER)
+  doc = format_price_trends(doc)
   return doc
 end
 
@@ -216,6 +217,36 @@ private
       arr.unshift("Symbol")
     end
 
+    return arr
+  end
+
+  def format_price_trends(doc)
+    arr = []
+    doc.children[1].children.each do |el|
+      tmp = []
+
+      if el.at_css(".symbol")
+        tmp << el.at_css(".symbol a").text
+        tmp << "www.google.com" + el.at_css(".symbol a").attributes["href"].text
+      end
+
+      if el.at_css(".name")
+        tmp << el.at_css(".name a").text
+      end
+
+      if el.at_css(".change")
+        tmp << el.at_css(".change").text.gsub("\n", "").strip
+      end
+
+      if el.at_css(".mktCap")
+        tmp << el.at_css(".mktCap").text.gsub("\n", "").strip
+      end
+
+      arr << tmp
+    end
+    arr.reject! { |e| e.empty? }
+    arr[0].unshift("Symbol")
+    arr[6].unshift("Symbol")
     return arr
   end
 
