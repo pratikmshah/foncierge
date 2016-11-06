@@ -93,7 +93,8 @@ end
 def get_marketcap_trends
   doc = get_url_data(G_FINANCE_HOMEPAGE)
   doc = doc.at_css(TOP_MOVERS)
-  doc = parse_trends(doc, MKTCAP_MOVER)
+  doc = doc.at_css(MKTCAP_MOVER)
+  doc = format_price_trends(doc)
   return doc
 end
 

@@ -35,4 +35,40 @@
       </tbody>
     </table>
   </div>
+
+  <p class="h4">Market Cap</p>
+  <div class="table-responsive">
+    <table id="mktcap" class="table table-hover table-condensed">
+      <tbody>
+
+        <% google_marketcap.each do |data| %>
+          <% if data.include?("Change") %>
+            <tr>
+              <th><%= data[0] %></th>
+
+              <% if data.include?("Losers") %>
+                <th class="red"><%= data[1] %></th>
+              <% else %>
+                <th class="green"><%= data[1] %></th>
+              <% end %>
+              <th><%= data[2] %></th>
+              <th><%= data[3] %></th>
+            </tr>
+          <% else %>
+            <tr>
+              <td><%= data[0] %></td>
+              <td><a href="<%= data[1] %>" target="_blank"><%= data[2] %></a></td>
+              <% if data[3].include?("-") %>
+                <td class="red"><%= data[3] %></td>
+              <% else %>
+                <td class="green"><%= data[3] %></td>
+              <% end %>
+              <td><%= data[4] %></td>
+            </tr>
+          <% end %>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
 </div>
