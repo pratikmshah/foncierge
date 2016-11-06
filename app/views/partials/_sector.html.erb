@@ -1,0 +1,25 @@
+<div id="sector">
+  <p class="h5"><strong>Sector Summary</strong></p>
+  <div class="table-responsive">
+    <table class="table table-hover table-condensed">
+      <tbody>
+
+        <tr>
+          <th class="text-muted">Sector - Change</th>
+        </tr>
+        <% google_sector.each do |data| %>
+          <% if data.include?("-") %>
+            <tr>
+              <td class="red"><%= data %></td>
+            </tr>
+          <% else %>
+            <tr>
+              <td class="green"><%= data %></td>
+            </tr>
+          <% end %>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+</div>

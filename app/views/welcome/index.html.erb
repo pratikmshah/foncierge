@@ -27,9 +27,8 @@
 
       <section id="market-stats">
         <div class="row">
-
           <div class="col-sm-8">
-
+            <%= render '/partials/sector', google_sector: @google_sector %>
           </div>
 
           <div class="col-sm-4">
@@ -37,7 +36,6 @@
             <%= render '/partials/currencies', google_currencies: @google_currencies %>
             <%= render '/partials/bonds', google_bonds: @google_bonds %>
           </div>
-
         </div>
       </section>
 
