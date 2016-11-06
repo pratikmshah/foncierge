@@ -7,6 +7,7 @@ NEWS_HEADLINE = 'span.name'                                       # returns titl
 NEWS_LINK = 'span.name a'                                         # returns title url
 NEWS_SRC = 'div.byline'                                           # returns source of article
 NEWS_EXCERPT = 'div.g-c div'                                      # returns article except
+ROOT = "https://www.google.com"
 
 # ---------------------------------GOOGLE FINANCE WORLD MARKETS
 G_FINANCE_HOMEPAGE = "https://www.google.com/finance"             # google finance world markets
@@ -227,7 +228,7 @@ private
 
       if el.at_css(".symbol")
         tmp << el.at_css(".symbol a").text
-        tmp << "www.google.com" + el.at_css(".symbol a").attributes["href"].text
+        tmp << ROOT + el.at_css(".symbol a").attributes["href"].text
       end
 
       if el.at_css(".name")
@@ -245,7 +246,9 @@ private
       arr << tmp
     end
     arr.reject! { |e| e.empty? }
+    arr[0].unshift("Gainers")
     arr[0].unshift("Symbol")
+    arr[6].unshift("Losers")
     arr[6].unshift("Symbol")
     return arr
   end
